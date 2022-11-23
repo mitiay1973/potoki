@@ -26,15 +26,13 @@ int timers(long int t)
 				hours = hours + 3;
 			}
 		}
-		if (hours == 0 && min == 0 && sec == 0)
-		{
-			printf_s("Время вышло");
-			break;
-		}
-		else
-		{
 			Sleep(1000);
 			sec--;
+			if (hours == 0 && min == 0 && sec == 0)
+			{
+				printf_s("Время вышло");
+				break;
+			}
 			if (sec == 0)
 			{
 				min--;
@@ -43,18 +41,10 @@ int timers(long int t)
 				{
 					hours--;
 					min = 59;
+				
 				}
 			}
-			if (sec != 0)
-			{
 				printf_s("%d:%d:%d\n", hours, min, sec);
-			}
-			else
-			{
-
-			}
-		}
-
 	}
 }
 int times(long int t)
