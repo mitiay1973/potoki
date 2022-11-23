@@ -125,25 +125,30 @@ int main()
 			scanf_s("%d", &timer);
 			scanf_s("%d", &timer1);
 			scanf_s("%d", &timer2);
-			while (timer != 0 || timer1 != 0)
+			if (timer > 24 || timer < 0 || timer1>60 || timer1 < 0 || timer2>60 || timer2 < 0)
 			{
-				if (timer != 0)
-				{
-					timer = timer - 1;
-					timer1 = timer1 + 60;
-				}
-				if (timer1 != 0)
-				{
-					timer1=timer1 - 1;
-					timer2 = timer2 + 60;
-				}
+				printf_s("Неверные данные\n");
 			}
-			hTread[2] = CreateThread(NULL, 0, timers, timer2, NULL, NULL);
-			break;
-		case 0:
-
+			else
+			{
+				while (timer != 0 || timer1 != 0)
+				{
+					if (timer != 0)
+					{
+						timer = timer - 1;
+						timer1 = timer1 + 60;
+					}
+					if (timer1 != 0)
+					{
+						timer1 = timer1 - 1;
+						timer2 = timer2 + 60;
+					}
+				}
+				hTread[2] = CreateThread(NULL, 0, timers, timer2, NULL, NULL);	
+			}
 			break;
 		default:
+			printf_s("Несуществующая операция\n");
 			break;
 		}
 	}
