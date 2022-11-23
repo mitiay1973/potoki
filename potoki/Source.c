@@ -44,6 +44,7 @@ int timers(long int t)
 				
 				}
 			}
+			system("cls");
 				printf_s("%d:%d:%d\n", hours, min, sec);
 	}
 }
@@ -88,6 +89,7 @@ int times(long int t)
 				}
 			}
 		}
+		system("cls");
 		printf_s("%d:%d:%d\n",hours,min,sec);
 	}
 }
@@ -106,7 +108,7 @@ int main()
 		switch (p)
 		{
 		case 1:
-			for (size_t i = 0; i < 2; i++)
+			for (size_t i = 0; i < 3; i++)
 			{
 				SuspendThread(hTread[i]);
 			}
