@@ -96,34 +96,46 @@ int times(long int t)
 int main()
 {
 	system("chcp 1251>nul");
-	HANDLE hTread[3];
+	HANDLE hTread[4];
 	DWORD p=-1;
 	DWORD timer=0;
 	DWORD timer1 = 0;
 	DWORD timer2 = 0;
+	DWORD timess = 0;
+	DWORD timess1 = 0;
+	DWORD timess2 = 0;
 	long int ttime;
+	printf_s("Выберите режим работы\n 2: секундомер\n 3: часы\n 4: таймер\n 5: настройка времени\n 1: Остановить выполнение программы\n");
 	while (1)
 	{
 		scanf_s("%d", &p);
 		switch (p)
 		{
 		case 1:
-			for (size_t i = 0; i < 3; i++)
+			for (size_t i = 0; i < 4; i++)
 			{
 				SuspendThread(hTread[i]);
+				system("cls");
+				printf_s("Выполнена остановка\n");
 			}
 			break;
 		case 2:
+			printf_s("Выбран режим секундомера\n");
 			hTread[0] = CreateThread(NULL, 0, times, 0, NULL, NULL);
 			break;
 		case 3:		
+			printf_s("Выбран режим часов\n");
 			SuspendThread(hTread[0]);
 			ttime= time(NULL);
 		  hTread[1] = CreateThread(NULL, 0, times, ttime, NULL, NULL);
 			break;
 		case 4:
+			printf_s("Выбран режим таймера\n");
+			printf_s("ч: ");
 			scanf_s("%d", &timer);
+			printf_s("мин: ");
 			scanf_s("%d", &timer1);
+			printf_s("сек: ");
 			scanf_s("%d", &timer2);
 			if (timer > 24 || timer < 0 || timer1>60 || timer1 < 0 || timer2>60 || timer2 < 0)
 			{
@@ -147,6 +159,36 @@ int main()
 				hTread[2] = CreateThread(NULL, 0, timers, timer2, NULL, NULL);	
 			}
 			break;
+		case 5:
+			printf_s("Выбран режим настройки времени\n");
+			printf_s("ч: ");
+			scanf_s("%d", &timess);
+			printf_s("мин: ");
+			scanf_s("%d", &timess1);
+			printf_s("сек: ");
+			scanf_s("%d", &timess2);
+			if (timess > 24 || timess < 0 || timess1>60 || timess1 < 0 || timess2>60 || timess2 < 0)
+			{
+				printf_s("Неверные данные\n");
+			}
+			else
+			{
+				while (timess != 0 || timess1 != 0)
+				{
+					if (timess != 0)
+					{
+						timess = timess - 1;
+						timess1 = timess1 + 60;
+					}
+					if (timess1 != 0)
+					{
+						timess1 = timess1 - 1;
+						timess2 = timess2 + 60;
+					}
+				}
+			}
+				hTread[3] = CreateThread(NULL, 0, times, timess2, NULL, NULL);
+				break;
 		default:
 			printf_s("Несуществующая операция\n");
 			break;
